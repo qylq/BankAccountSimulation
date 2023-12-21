@@ -9,33 +9,17 @@ public class BankAccount {
     }
 
     public void deposit(int amount) {
-        synchronized (KEY) {
-            balance += amount;
-            System.out.println("Пополнение на сумму: " + amount + ". Новый баланс: " + balance);
-            KEY.notify();
-            try {
-                KEY.wait();
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        balance += amount;
+        System.out.println("Пополнение на сумму: " + amount + ". Новый баланс: " + balance);
     }
 
     public void withdraw(int amount) {
-        synchronized (KEY) {
-            if (balance >= amount) {
-                balance -= amount;
-                System.out.println("Снятие на сумму: " + amount + ". Новый баланс: " + balance);
-                KEY.notify();
-                try {
-                    KEY.wait();
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                System.out.println("Не хватает!");
-                flag = true;
-            }
+        if (balance >= amount) {
+            balance -= amount;
+            System.out.println("Снятие на сумму: " + amount + ". Новый баланс: " + balance);
+        } else {
+            System.out.println("Не хватает!");
+            flag = true;
         }
     }
     public static final Object KEY = new Object();

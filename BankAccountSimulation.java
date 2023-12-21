@@ -22,7 +22,7 @@ public class BankAccountSimulation {
         Thread withdrawThread = new Thread(() -> {
             Random random = new Random();
             while (!account.flag) {
-                int withdrawAmount = random.nextInt(333);
+                int withdrawAmount = random.nextInt(666);
                 account.withdraw(withdrawAmount);
                 try {
                     Thread.sleep(500);
